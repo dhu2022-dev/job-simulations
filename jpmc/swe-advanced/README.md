@@ -10,14 +10,14 @@ While I completed this experience early in my journey, I’ve since revisited th
 > ✅ Verified via official certificate (see below)
 
 <p align="center">
-  <img src="./assets/jpmc-certificate.png" alt="Certificate of Completion" width="500"/>
+  <img src="./jpmc-certificate.png" alt="Certificate of Completion" width="500"/>
 </p>
 
 > 🛑 This experience is no longer available on Forage.  
 > I’ve preserved a screenshot below for reference to demonstrate its original branding:
 
 <p align="center">
-  <img src="./assets/jpmc-program-banner.png" alt="JPMC SWE Forage Banner" width="600"/>
+  <img src="./jpmc-program-banner.png" alt="JPMC SWE Forage Banner" width="600"/>
 </p>
 
 ## 🔗 Tasks
