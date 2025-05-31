@@ -10,7 +10,7 @@ These bite-sized projects simulate real tasks from companies like J.P. Morgan Ch
 
 - [`/jpmc/quant`](./jpmc/quant) – Quantitative analysis simulation
 - [`/jpmc/swe-advanced`](./jpmc/swe-advanced) – Advanced SWE virtual experience (links to forked tasks)
-- `/jpmc/swe-beginner` – *Coming soon*
+- [`/jpmc/swe-beginner`](./jpmc/swe-beginner) – *Another One*
 
 ---
 
