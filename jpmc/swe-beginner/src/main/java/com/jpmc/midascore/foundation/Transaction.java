@@ -2,6 +2,13 @@ package com.jpmc.midascore.foundation;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Represents a financial transaction between two users.
+ * 
+ * This class is used as the message payload for Kafka transactions. It contains
+ * the sender ID, recipient ID, and transaction amount. JSON serialization/deserialization
+ * is handled automatically by Spring Kafka.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction {
     private long senderId;

@@ -1,36 +1,55 @@
-# JPMC Advanced Software Engineering Job Simulation
+# JPMC Software Engineering - Advanced
 
-This project showcases my completion of the **Advanced Software Engineering Virtual Experience** designed by **J.P. Morgan Chase & Co.** and hosted on Forage.
+**Status**: ✅ Completed
 
-Each task is maintained in a separate public repository to preserve original forks and contributions from JPMC’s official starter templates. These projects simulate how engineers at JPMC use live data to support trading decisions.
+This project represents completion of the **Advanced Software Engineering Virtual Experience** designed by **J.P. Morgan Chase & Co.** and hosted on Forage.
 
-While I completed this experience early in my journey, I’ve since revisited the code to clean it up, modernize the structure, and improve usability.
+## Program Overview
 
-> 🏦 Designed by real engineers at J.P. Morgan Chase  
-> ✅ Verified via official certificate (see below)
+This virtual experience program simulated how engineers at JPMC use live data to support trading decisions. The program consisted of three tasks focused on real-time data feeds, financial data visualization, and full-stack integration.
+
+**Note**: The completed tasks are maintained in separate forked repositories to preserve the original project structure and demonstrate participation in the program.
+
+## Certificate of Completion
 
 <p align="center">
   <img src="./jpmc-certificate.png" alt="Certificate of Completion" width="500"/>
 </p>
 
-> 🛑 This experience is no longer available on Forage.  
-> I’ve preserved a screenshot below for reference to demonstrate its original branding:
+## Program Banner
 
 <p align="center">
   <img src="./jpmc-program-banner.png" alt="JPMC SWE Forage Banner" width="600"/>
 </p>
 
-## 🔗 Tasks
+## Tasks Completed
 
-- [Task 1 – Interface with the Stock Price Data Feed](https://github.com/dhu2022-dev/jpmc-swe-task1)
-- [Task 2 – Use JPMorgan Chase’s frameworks and tools (Perspective)](https://github.com/dhu2022-dev/jpmc-swe-task2)
-- [Task 3 – Display data visually for Traders](https://github.com/dhu2022-dev/jpmc-swe-task3)
+Each task is maintained in its own repository:
 
-> 📌 These tasks were intentionally left in their original forked repositories to reflect their source and ensure public verification of participation.
+1. **[Task 1 – Interface with the Stock Price Data Feed](https://github.com/dhu2022-dev/jpmc-swe-task1)**
+   - Interfacing with real-time data feeds via REST APIs
 
-## 📝 What I Learned
+2. **[Task 2 – Use JPMorgan Chase's frameworks and tools (Perspective)](https://github.com/dhu2022-dev/jpmc-swe-task2)**
+   - Working with JPMC's internal tools and frameworks
 
-- Interfacing with real-time data feeds via REST APIs
-- Visualizing dynamic financial data using Perspective
-- Integrating full-stack workflows (Python backend + React frontend)
-- Following GitHub pull request workflows across tasks
+3. **[Task 3 – Display data visually for Traders](https://github.com/dhu2022-dev/jpmc-swe-task3)**
+   - Visualizing dynamic financial data for trading dashboards
+
+## Key Skills Demonstrated
+
+- Real-time data integration with REST APIs
+- Financial data visualization using Perspective framework
+- Full-stack development workflows (Python backend + React frontend)
+- Git workflows and collaborative development practices
+- Working with proprietary frameworks and tools
+
+## Repository Structure
+
+The tasks were intentionally maintained in separate forked repositories to:
+- Preserve original project structure and contributions
+- Demonstrate participation in the official program
+- Allow for public verification of completed work
+
+---
+
+*Note: This experience is no longer available on Forage. The repositories and certificate serve as documentation of program completion.*

@@ -1,42 +1,251 @@
-# David Hu JPMC Quant Job Sim Code Description + Instructions Given
+# JPMC Quantitative Research: Natural Gas Price Prediction
 
-## Task 1 (Commodity Price Prediction)
+Financial modeling and time series analysis project for natural gas price prediction and contract pricing. This project demonstrates quantitative finance skills including statistical modeling, forecasting, and contract valuation.
 
-After asking around for the source of the existing data, you learn that the current process is to take a monthly snapshot of prices from a market data provider, which represents the market price of natural gas delivered at the end of each calendar month. This data is available for roughly the next 18 months and is combined with historical prices in a time series database. After gaining access, you are able to download the data in a CSV file.
+## Project Overview
 
-You should use this monthly snapshot to produce a varying picture of the existing price data, as well as an extrapolation for an extra year, in case the client needs an indicative price for a longer-term storage contract.
+This project consists of two main tasks focused on natural gas commodity pricing:
+1. **Time Series Forecasting**: Building a SARIMA model to predict natural gas prices
+2. **Contract Pricing Model**: Creating a pricing system for natural gas storage contracts with multiple injection/withdrawal dates
 
-### Instructions
+**Note**: This project was part of a guided virtual experience program. The task requirements and data were provided; this documentation focuses on the implementation and modeling approaches used.
 
-1. **Download the Data**  
-   Download the monthly natural gas price data. Each point in the data set corresponds to the purchase price of natural gas at the end of a month, from 31st October 2020 to 30th September 2024.
+## Tech Stack
 
-2. **Analyze and Extrapolate**  
-   Analyze the data to estimate the purchase price of gas at any date in the past and extrapolate it for one year into the future. Your code should take a date as input and return a price estimate.
+- **Python 3.x**
+- **pandas**: Data manipulation and time series handling
+- **numpy**: Numerical computations
+- **statsmodels**: SARIMA time series modeling
+- **matplotlib**: Data visualization
 
-3. **Visualization**  
-   Try to visualize the data to find patterns and consider what factors might cause the price of natural gas to vary. This can include looking at months of the year for seasonal trends that affect the prices, but market holidays, weekends, and bank holidays need not be accounted for.
+## Task Status
 
-## Task 2 (Contract Pricing Model)
+### ✅ Task 1: Natural Gas Price Prediction Model
 
-You need to create a prototype pricing model that can go through further validation and testing before being put into production. Eventually, this model may be the basis for fully automated quoting to clients, but for now, the desk will use it with manual oversight to explore options with the client. 
+**Status**: Completed
 
-### Instructions
+**Objective**: Analyze historical natural gas price data and create a forecasting model to predict prices for any date within a year in the future.
 
-1. **Write a Pricing Function**  
-   Write a function that is able to use the data you created previously to price the contract. The client may want to choose multiple dates to inject and withdraw a set amount of gas, so your approach should generalize the explanation from before. Consider all the cash flows involved in the product.
+**Implementation Details**:
 
-2. **Input Parameters**  
-   The input parameters that should be taken into account for pricing are:
-   - **Injection Dates**: Dates when gas is injected.
-   - **Withdrawal Dates**: Dates when gas is withdrawn.
-   - **Prices**: The prices at which the commodity can be purchased/sold on those dates.
-   - **Injection/Withdrawal Rate**: The rate at which the gas can be injected/withdrawn.
-   - **Maximum Volume**: The maximum volume that can be stored.
-   - **Storage Costs**: Costs associated with storing the gas.
+- **Data Loading**: Monthly natural gas price data from October 2020 to September 2024
+- **Model Selection**: SARIMA (Seasonal AutoRegressive Integrated Moving Average) model
+  - ARIMA order: `(1, 1, 1)` for trend component
+  - Seasonal order: `(1, 1, 1, 12)` to capture monthly seasonality
+- **Forecasting**: Generates 12-month price forecasts beyond historical data
+- **Interpolation**: Estimates prices for any date between historical and forecasted periods using linear interpolation
+- **Visualization**: Creates plots showing historical prices, forecasted prices, and confidence intervals
 
-3. **Function Requirements**  
-   Write a function that takes these inputs and gives back the value of the contract. You can assume there is no transport delay and that interest rates are zero. Market holidays, weekends, and bank holidays need not be accounted for.
+**Key Features**:
+- Price estimation for historical dates (exact lookup)
+- Price forecasting for future dates (12 months ahead)
+- Date interpolation for dates between known points
+- Visual representation of price trends and forecasts
 
-4. **Testing**  
-   Test your code by selecting a few sample inputs.
+### ✅ Task 2: Contract Pricing Model
+
+**Status**: Completed
+
+**Objective**: Create a pricing model for natural gas storage contracts that handles multiple injection and withdrawal dates with associated costs.
+
+**Implementation Details**:
+
+- **Contract Parameters**:
+  - Storage costs (fixed)
+  - Transport rate (variable cost per MMBtu)
+  - Maximum storage volume
+  - Injection dates (when gas is purchased and stored)
+  - Withdrawal dates (when gas is sold from storage)
+  
+- **Pricing Logic**:
+  - Calculates buy price at injection date using Task 1's price model
+  - Calculates sell price at withdrawal date
+  - Computes profit margin: `(sell_price - buy_price) * amount`
+  - Accounts for transport costs: `transport_rate * amount`
+  - Includes fixed storage costs per order
+  
+- **Order Management**:
+  - Validates storage capacity constraints
+  - Rejects unprofitable orders (negative profit)
+  - Maintains ledger of cash flows by date
+  - Tracks client budget and warns of insufficient funds
+  
+- **Contract Valuation**:
+  - Calculates total contract value across all orders
+  - Validates sufficient funds for all scheduled transactions
+  - Returns -1 if client cannot afford the contract timeline
+
+## Project Structure
+
+```
+jpmc/quant/
+├── README.md
+├── requirements.txt
+├── Nat_Gas.csv              # Historical natural gas price data
+├── Task1.py                 # Natural gas price prediction model
+└── Task2.py                 # Contract pricing model
+```
+
+## Setup Instructions
+
+### Prerequisites
+
+- Python 3.7 or higher
+- pip package manager
+
+### Installation
+
+1. Navigate to the project directory:
+```bash
+cd jpmc/quant
+```
+
+2. Create a virtual environment (recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+### Task 1: Price Prediction Model
+
+Run the price prediction model:
+```bash
+python Task1.py
+```
+
+The script will:
+1. Load historical data from `Nat_Gas.csv`
+2. Fit the SARIMA model to the data
+3. Generate 12-month forecasts
+4. Display a plot showing historical and forecasted prices
+5. Prompt you to enter a date to estimate the price
+
+**Example Usage**:
+```python
+from Task1 import NaturalGasPriceModel
+
+# Initialize and load the model
+model = NaturalGasPriceModel('Nat_Gas.csv')
+model.load_data()
+model.fit_model()
+model.forecast_price()
+
+# Estimate price for a specific date
+price = model.estimate_price('2024-12-15')
+print(f"Estimated price: ${price}")
+```
+
+**Key Methods**:
+- `load_data()`: Loads and parses the CSV data
+- `fit_model()`: Trains the SARIMA model on historical data
+- `forecast_price()`: Generates 12-month price forecasts
+- `plot_data()`: Visualizes historical and forecasted prices
+- `estimate_price(date_str)`: Returns price estimate for any date (YYYY-MM-DD format)
+
+### Task 2: Contract Pricing Model
+
+Run the contract pricing model:
+```bash
+python Task2.py
+```
+
+The script will:
+1. Initialize the contract pricing model with market parameters
+2. Load and fit the price prediction model from Task 1
+3. Prompt you to enter contract orders interactively:
+   - Injection date (when to buy gas)
+   - Withdrawal date (when to sell gas)
+   - Amount to purchase (in MMBtu)
+4. Validate each order (storage capacity, profitability)
+5. Calculate total contract value after all orders
+
+**Example Usage**:
+```python
+from Task1 import NaturalGasPriceModel
+from Task2 import ContractPricingModel
+
+# Setup price model
+model = NaturalGasPriceModel('Nat_Gas.csv')
+model.load_data()
+model.fit_model()
+model.forecast_price()
+
+# Setup contract pricing with market parameters
+storage_cost = 100000  # Fixed storage cost
+transport_rate = 0.1   # Cost per MMBtu to transport
+max_volume = 1000000   # Maximum storage capacity
+
+contract_model = ContractPricingModel(
+    storage_cost, transport_rate, max_volume, model
+)
+
+# Price a single order
+profit = contract_model.price_order(
+    injection_date='2024-06-01',
+    withdrawal_date='2024-12-01',
+    amount=50000
+)
+print(f"Expected profit: ${profit}")
+```
+
+**Key Methods**:
+- `price_order(injection_date, withdrawal_date, amount)`: Prices a single order and returns profit
+- `process_orders()`: Interactive method to process multiple orders
+- `calculate_contract_value()`: Calculates total contract value and validates budget
+
+## Data Format
+
+The `Nat_Gas.csv` file contains monthly natural gas price data with the following structure:
+- **Dates**: End-of-month dates from October 2020 to September 2024
+- **Prices**: Market price of natural gas for delivery at the end of each calendar month
+
+## Key Skills Demonstrated
+
+- **Time Series Analysis**: SARIMA modeling for forecasting with seasonality
+- **Financial Modeling**: Contract pricing with multiple cash flows
+- **Statistical Forecasting**: 12-month ahead predictions with confidence intervals
+- **Data Interpolation**: Linear interpolation for date-based price estimates
+- **Risk Management**: Budget validation and capacity constraints
+- **Data Visualization**: Time series plots with historical and forecasted data
+
+## Model Details
+
+### SARIMA Model Parameters
+
+The SARIMA model uses:
+- **Order (p, d, q)**: `(1, 1, 1)`
+  - `p=1`: One autoregressive term
+  - `d=1`: First-order differencing for stationarity
+  - `q=1`: One moving average term
+
+- **Seasonal Order (P, D, Q, m)**: `(1, 1, 1, 12)`
+  - `P=1`: One seasonal autoregressive term
+  - `D=1`: First-order seasonal differencing
+  - `Q=1`: One seasonal moving average term
+  - `m=12`: Monthly seasonality (12 periods per year)
+
+### Pricing Model Assumptions
+
+- No transport delays (instantaneous injection/withdrawal)
+- Zero interest rates
+- Market holidays and weekends are not accounted for
+- Fixed storage cost per order
+- Linear transport cost per unit volume
+
+## Limitations and Future Improvements
+
+- Model assumes stationarity after differencing; may need refinement for longer-term forecasts
+- Linear interpolation may not capture all price dynamics between data points
+- Contract pricing model uses simple profit calculation; could incorporate more sophisticated financial metrics
+- No validation for unrealistic dates or edge cases in user input
+
+---
+
+*This project is part of the J.P. Morgan Chase Quantitative Research Virtual Experience program.*
