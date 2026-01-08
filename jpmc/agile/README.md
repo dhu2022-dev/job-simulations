@@ -4,10 +4,6 @@
 
 This section documents the JPMC Agile Methodologies virtual experience program focused on learning Agile and Scrum practices as applied within J.P. Morgan Chase & Co.
 
-## Certificate of Completion
-
-[Certificate of Completion](./agile_jobsim_cert.pdf)
-
 ## Program Overview
 
 This program provides practical understanding of Agile methodologies through educational content and quizzes. It covers core Agile concepts, Scrum framework, and how these practices are implemented in large software engineering organizations.
@@ -33,6 +29,14 @@ This program covers:
 - Effective daily standup practices
 - Sprint review and retrospective best practices
 - How Agile is applied in large-scale software engineering organizations
+
+---
+
+## Certificate of Completion
+
+<p align="center">
+  <img src="./agile_jobsim_cert.png" alt="JPMC Agile Methodologies Certificate of Completion" width="600"/>
+</p>
 
 ---
 
