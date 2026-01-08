@@ -15,6 +15,7 @@ These simulations provide hands-on experience with industry-standard technologie
 - **Backend Development**: Spring Boot, Kafka, REST APIs, database design
 - **Data Science & Quantitative Finance**: Time series forecasting, financial modeling, statistical analysis
 - **Software Engineering**: Clean code practices, testing, system architecture
+- **Agile Methodologies**: Scrum framework, user stories, backlog management, sprint ceremonies
 
 ## Projects
 
@@ -46,6 +47,13 @@ Natural gas price prediction and contract pricing models using time series analy
 
 - **Status**: Tasks 1-2 completed
 - **Key Features**: SARIMA forecasting, multi-date contract pricing, data visualization
+
+#### [Agile Methodologies](./jpmc/agile) ✅ Completed (Archived)
+
+Educational program focused on learning Agile and Scrum methodologies as applied at JPMC.
+
+- **Status**: Completed
+- **Key Topics**: Agile principles, Scrum framework, user stories, backlog management, daily standups, sprint ceremonies
 
 ### Goldman Sachs
 
