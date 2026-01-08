@@ -1,12 +1,12 @@
 # JPMC Quantitative Research: Natural Gas Price Prediction
 
-Financial modeling and time series analysis project for natural gas price prediction and contract pricing. This project demonstrates quantitative finance skills including statistical modeling, forecasting, and contract valuation.
+Quantitative research project focused on natural gas commodity price analysis and storage contract pricing. This project involves analyzing monthly price data, creating forecasting models, and developing a prototype pricing model for storage contracts.
 
 ## Project Overview
 
-This project consists of two main tasks focused on natural gas commodity pricing:
-1. **Time Series Forecasting**: Building a SARIMA model to predict natural gas prices
-2. **Contract Pricing Model**: Creating a pricing system for natural gas storage contracts with multiple injection/withdrawal dates
+This project consists of two main tasks:
+1. **Commodity Price Prediction**: Analyze monthly natural gas price data and create a model to estimate prices at any date, with extrapolation for one year into the future
+2. **Contract Pricing Model**: Create a prototype pricing model for natural gas storage contracts that considers injection/withdrawal dates, rates, storage costs, and capacity constraints
 
 **Note**: This project was part of a guided virtual experience program. The task requirements and data were provided; this documentation focuses on the implementation and modeling approaches used.
 
@@ -20,60 +20,43 @@ This project consists of two main tasks focused on natural gas commodity pricing
 
 ## Task Status
 
-### ✅ Task 1: Natural Gas Price Prediction Model
+### ✅ Task 1: Commodity Price Prediction
 
 **Status**: Completed
 
-**Objective**: Analyze historical natural gas price data and create a forecasting model to predict prices for any date within a year in the future.
+**Objective**: Analyze monthly natural gas price data and create a model to estimate prices at any date in the past and extrapolate for one year into the future.
 
-**Implementation Details**:
+**Task Description**: 
+The task involves working with monthly snapshots of natural gas prices from a market data provider, representing the market price of natural gas delivered at the end of each calendar month. This data is available for roughly the next 18 months and is combined with historical prices.
 
-- **Data Loading**: Monthly natural gas price data from October 2020 to September 2024
-- **Model Selection**: SARIMA (Seasonal AutoRegressive Integrated Moving Average) model
-  - ARIMA order: `(1, 1, 1)` for trend component
-  - Seasonal order: `(1, 1, 1, 12)` to capture monthly seasonality
-- **Forecasting**: Generates 12-month price forecasts beyond historical data
-- **Interpolation**: Estimates prices for any date between historical and forecasted periods using linear interpolation
-- **Visualization**: Creates plots showing historical prices, forecasted prices, and confidence intervals
-
-**Key Features**:
-- Price estimation for historical dates (exact lookup)
-- Price forecasting for future dates (12 months ahead)
-- Date interpolation for dates between known points
-- Visual representation of price trends and forecasts
+**Implementation**:
+- Analyzed monthly natural gas price data from October 31, 2020 to September 30, 2024
+- Created a model that takes a date as input and returns a price estimate
+- Implemented extrapolation for one year into the future for longer-term storage contract pricing
+- Added visualization to identify patterns and seasonal trends in price data
+- Used SARIMA time series model for forecasting and linear interpolation for date-based price estimates
 
 ### ✅ Task 2: Contract Pricing Model
 
 **Status**: Completed
 
-**Objective**: Create a pricing model for natural gas storage contracts that handles multiple injection and withdrawal dates with associated costs.
+**Objective**: Create a prototype pricing model for natural gas storage contracts that can be used with manual oversight to explore options with clients.
 
-**Implementation Details**:
+**Task Description**: 
+The model is a prototype that will go through further validation and testing before being put into production. Eventually, it may be the basis for fully automated quoting to clients, but for now, it's used with manual oversight.
 
-- **Contract Parameters**:
-  - Storage costs (fixed)
-  - Transport rate (variable cost per MMBtu)
-  - Maximum storage volume
-  - Injection dates (when gas is purchased and stored)
-  - Withdrawal dates (when gas is sold from storage)
-  
-- **Pricing Logic**:
-  - Calculates buy price at injection date using Task 1's price model
-  - Calculates sell price at withdrawal date
-  - Computes profit margin: `(sell_price - buy_price) * amount`
-  - Accounts for transport costs: `transport_rate * amount`
-  - Includes fixed storage costs per order
-  
-- **Order Management**:
-  - Validates storage capacity constraints
-  - Rejects unprofitable orders (negative profit)
-  - Maintains ledger of cash flows by date
-  - Tracks client budget and warns of insufficient funds
-  
-- **Contract Valuation**:
-  - Calculates total contract value across all orders
-  - Validates sufficient funds for all scheduled transactions
-  - Returns -1 if client cannot afford the contract timeline
+**Implementation**:
+- **Pricing Function**: Takes multiple injection and withdrawal dates with set amounts of gas
+- **Input Parameters**:
+  - Injection dates: Dates when gas is injected
+  - Withdrawal dates: Dates when gas is withdrawn
+  - Prices: Prices at which the commodity can be purchased/sold on those dates (using Task 1's price model)
+  - Injection/Withdrawal rate: Rate at which gas can be injected/withdrawn
+  - Maximum volume: Maximum volume that can be stored
+  - Storage costs: Costs associated with storing the gas
+- **Function Output**: Returns the value of the contract
+- **Assumptions**: No transport delay, zero interest rates, market holidays/weekends/bank holidays not accounted for
+- Includes testing with sample inputs to validate the pricing logic
 
 ## Project Structure
 

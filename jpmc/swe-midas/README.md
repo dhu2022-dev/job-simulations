@@ -1,12 +1,21 @@
-# JPMC Software Engineering - Beginner: Midas Core
+# JPMC Midas Core - Transaction Processing
 
-Transaction processing system built with Spring Boot and Apache Kafka, implementing a microservices-style architecture for real-time transaction handling and balance management.
+**Status**: 🚧 In Progress
+
+Transaction processing system built with Spring Boot and Apache Kafka for handling financial transactions and managing user balances.
+
+This is a JPMC Software Engineering virtual experience simulation focused on building a transaction processing system.
 
 ## Project Overview
 
-Midas Core is a transaction processing system that receives financial transactions via Kafka, processes them to update user balances, and provides balance query capabilities. The system demonstrates event-driven architecture principles using Kafka for message queuing and Spring Boot for the application framework.
+Midas Core is a transaction processing system that demonstrates event-driven architecture in a financial services context. The system:
+- Receives financial transactions via Kafka message queues
+- Processes transactions to update user account balances
+- Provides REST API endpoints for querying user balances
 
-**Note**: This project was part of a guided virtual experience program. The foundational architecture, entity models, and test infrastructure were provided. This documentation focuses on the implementation work completed within that framework.
+**What This Demonstrates**: This project showcases backend development skills including event-driven architecture, message queue integration, database operations, and REST API design - all critical skills for building scalable financial systems.
+
+**Note**: This project was part of a guided virtual experience program. The foundational architecture, entity models, and test infrastructure were provided. This documentation focuses on what was implemented and how to use it.
 
 ## Tech Stack
 
@@ -19,24 +28,20 @@ Midas Core is a transaction processing system that receives financial transactio
 
 ## Task Status
 
-### ✅ Task 1: Application Bootstrapping
-- **Status**: Completed
-- **Objective**: Verify Spring Boot application boots successfully
-- **Implementation**: Confirmed application configuration and dependencies are correctly set up
-- **Verification**: TaskOneTests passes, demonstrating successful application startup
+**Project Status**: 🚧 In Progress
 
-### ✅ Task 2: Kafka Consumer Setup
+### ✅ Task 1: Application Setup
 - **Status**: Completed
-- **Objective**: Configure Kafka consumer to receive and process transaction messages
+- **Objective**: Set up and verify the Spring Boot application boots successfully
+- **Implementation**: Configured application and verified all dependencies are correctly set up
+
+### ✅ Task 2: Interface with Transaction Data Feed
+- **Status**: Completed
+- **Objective**: Set up a system to interface with the transaction data feed using Kafka
 - **Implementation**: 
-  - Kafka consumer configured with JSON deserialization
-  - Consumer listens to configured Kafka topic
-  - Transaction messages are received and logged
-  - Kafka producer utility created for test scenarios
-- **Key Components**:
-  - `KafkaConsumer`: Listens for Transaction objects from Kafka topics
-  - `KafkaConfiguration`: Configures Kafka producer and consumer factories
-  - `KafkaProducer`: Helper component for sending test transactions
+  - Configured Kafka consumer to listen to the transaction data feed
+  - Consumer receives and processes transaction messages from the Kafka topic
+  - Handles JSON deserialization of Transaction objects
 
 ### 🚧 Task 3: Transaction Processing (In Progress)
 - **Status**: Currently working on
@@ -49,7 +54,7 @@ Midas Core is a transaction processing system that receives financial transactio
 
 ### ⏳ Task 4: Additional Transaction Scenarios
 - **Status**: Not started
-- **Objective**: Handle additional transaction processing scenarios and edge cases
+- **Objective**: Handle additional transaction processing scenarios
 
 ### ⏳ Task 5: REST API for Balance Queries
 - **Status**: Not started
@@ -112,69 +117,81 @@ src/
         └── Task*Tests.java                 # Task verification tests
 ```
 
-## Setup Instructions
+## Quick Start
+
+After cloning this repository, you can get the project running in a few steps:
 
 ### Prerequisites
 
 - **Java 17** or higher
 - **Maven 3.6+**
-- Optional: IDE with Java support (IntelliJ IDEA, Eclipse, VS Code)
 
-### Building the Project
+### Build and Run
 
+1. **Navigate to the project directory:**
 ```bash
 cd jpmc/swe-beginner
-mvn clean install
 ```
 
-This will:
-- Download all dependencies
-- Compile the source code
-- Run all tests
-- Package the application
+2. **Build the project:**
+```bash
+mvn clean install
+```
+This downloads dependencies, compiles the code, runs all tests, and packages the application.
 
-### Running Tests
+3. **Run the application:**
+```bash
+mvn spring-boot:run
+```
+The application starts on port 8080. The system uses embedded Kafka for testing, so no separate Kafka server is needed.
 
-Run all tests:
+### Verify Everything Works
+
+Run the test suite to verify all functionality:
 ```bash
 mvn test
 ```
 
-Run a specific task test:
+Or run individual task tests to see specific functionality:
 ```bash
-mvn test -Dtest=TaskOneTests
-mvn test -Dtest=TaskTwoTests
-# etc.
+mvn test -Dtest=TaskOneTests    # Verifies app bootstrapping
+mvn test -Dtest=TaskFiveTests   # Tests the full transaction flow and balance API
 ```
 
-### Running the Application
+## How It Works
 
-```bash
-mvn spring-boot:run
+### System Architecture
+
+The system follows an event-driven architecture:
+
+1. **Transaction Input**: Transactions are sent to Kafka topics as JSON messages
+2. **Consumer Processing**: The `KafkaConsumer` receives transactions and processes them
+3. **Balance Updates**: User balances are updated in the H2 database
+4. **Balance Queries**: REST API endpoints allow querying current balances
+
+### Key Workflow
+
+```
+Transaction → Kafka Topic → KafkaConsumer → Database Update → REST API Query
 ```
 
-The application will start on the default Spring Boot port (8080). Note that for tasks requiring Kafka, the embedded Kafka in tests handles this automatically.
+### Testing the System
 
-## Demo Instructions
+The project includes tests for each task:
 
-### Task 1 Demo
+- **TaskOneTests**: Verifies the Spring Boot application starts correctly
+- **TaskTwoTests**: Tests Kafka consumer setup - sends transactions to Kafka and verifies they're received
+- **TaskThreeTests**: (In progress) Will test transaction processing and balance updates
+- **TaskFourTests**: (Not started) Will test additional transaction scenarios
+- **TaskFiveTests**: (Not started) Will test the complete flow including REST API balance queries
+
+To test what's currently implemented:
 ```bash
-mvn test -Dtest=TaskOneTests
+mvn test -Dtest=TaskOneTests  # Verify app boots
+mvn test -Dtest=TaskTwoTests  # Test Kafka consumer (Note: contains infinite loop for debugging)
 ```
-Verify the application boots successfully and check the console output for the completion message.
 
-### Task 2 Demo
-```bash
-mvn test -Dtest=TaskTwoTests
-```
-The test will send transactions to Kafka. Use a debugger to observe the `KafkaConsumer.handleTransaction()` method receiving and logging transactions. Note: This test contains an infinite loop for debugging purposes.
-
-### Task 3 Demo (In Progress)
-When Task 3 is complete, run:
-```bash
-mvn test -Dtest=TaskThreeTests
-```
-This will process transactions and update user balances. Use the debugger to verify balance updates in the database.
+Once Tasks 3-5 are complete, TaskFiveTests will demonstrate the full workflow from transaction ingestion to balance queries.
 
 ## Configuration
 
@@ -205,14 +222,26 @@ For testing, embedded Kafka is automatically configured in `KafkaConfiguration.j
    - Return Balance object with user's current balance
    - Ensure endpoint matches expected URL pattern for tests
 
+## What This Project Demonstrates
+
+This simulation focuses on building core backend engineering skills:
+
+1. **Event-Driven Architecture**: Integrating Kafka for asynchronous message processing
+2. **Database Operations**: Working with JPA entities and repositories for data persistence
+3. **Transaction Processing**: Building logic to process financial transactions and update balances
+4. **REST API Development**: Creating endpoints for querying system state
+5. **Integration Testing**: Setting up test infrastructure with embedded services
+
+**Significance**: This project builds skills in production-ready backend systems with event-driven architecture, message queues, and database integration - directly applicable to financial services and trading systems.
+
 ## Skills Demonstrated
 
-- Event-driven architecture with Kafka
 - Spring Boot application development
+- Kafka integration for message processing
 - Database integration with JPA/H2
-- Microservices communication patterns
+- REST API development
 - Integration testing with embedded services
-- Clean code organization and component design
+- Component-based software design
 
 ---
 
