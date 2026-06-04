@@ -38,8 +38,8 @@ Six modules on how JPMC applies Scrum. No code here; I kept my quiz notes in eac
 
 ---
 
-These programs are hosted on [Forage](https://www.theforage.com). Screenshot below for context in case the site changes.
+These programs are hosted on [Forage](https://www.theforage.com).
 
 <p align="center">
-  <img src="./assets/forage-homepage.png" alt="Forage: free virtual job simulations and career prep" width="600"/>
+  <img src="./assets/forage-job-simulations.png" alt="Forage job simulation catalog: company cards with program titles, duration, and difficulty" width="700"/>
 </p>
