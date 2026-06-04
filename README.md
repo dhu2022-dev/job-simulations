@@ -6,6 +6,8 @@ This repo is where I keep my work from virtual job simulations on [Forage](https
 
 ### [Software Engineering (Perspective)](./jpmc/swe-perspective/)
 
+*Archived on Forage:* JPMC now lists a newer Software Engineering sim (Java/Kafka). This folder is the earlier Python/React + Perspective program I completed.
+
 This job sim involved writing a program to support a trader's workflow. The goal was to help the trader spot when the relationship between two correlated stocks. I built the dashboard tooling behind that across three tasks.
 
 1. **Stock price feed** — Fixed a Python client to pull bid/ask data and compute price ratios.
